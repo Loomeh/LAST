@@ -899,7 +899,8 @@ static void toggle_auto_splitter(GtkCheckMenuItem* menu_item, gpointer user_data
     }
 }
 
-void auto_splitter_info_window() {
+void auto_splitter_info_window()
+{
     GtkWidget* popup;
     GtkWidget* vbox;
     GtkWidget* label_gamename;

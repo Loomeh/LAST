@@ -251,7 +251,8 @@ bool call_va(lua_State* L, const char* func, const char* sig, ...)
     return true;
 }
 
-void startup(lua_State* L) {
+void startup(lua_State* L)
+{
     lua_getglobal(L, "startup");
     lua_pcall(L, 0, 0, 0);
 
