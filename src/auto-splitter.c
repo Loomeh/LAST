@@ -28,6 +28,12 @@ atomic_bool toggle_loading = false;
 atomic_bool call_reset = false;
 bool prev_is_loading;
 
+char desc_gamename[50] = "";
+char desc_authors[100] = "";
+char desc_notes[500] = "";
+char desc_version[10] = "";
+bool desc_experimental = false;
+
 static const char* disabled_functions[] = {
     "collectgarbage",
     "dofile",
