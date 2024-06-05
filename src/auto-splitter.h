@@ -3,6 +3,7 @@
 
 #include <linux/limits.h>
 #include <stdatomic.h>
+#include <stdbool.h>
 
 extern atomic_bool auto_splitter_enabled;
 extern atomic_bool call_start;
