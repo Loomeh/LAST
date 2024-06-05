@@ -26,12 +26,31 @@ process('GameBlaBlaBla.exe')
     * The order at which these run is the same as they are documented below.
 
 ### `startup`
- The purpose of this function is to specify how many times LibreSplit checks memory values and executes functions each second, the default is 60Hz. Usually, 60Hz is fine and this function can remain undefined. However, it's there if you need it.
+ The purpose of this function is to define LibreSplit's behaviour-defining variables.
+
+**refreshRate**: Controls how many times each second LibreSplit performs memory checks. If left undefined, LibreSplit will default to 60, which is fine for most games. This variable can usually remain undefined.
+
+**ls_gameName**: Defines the game name string shown in the "Auto Splitter Info" GUI dialog. Not necessary for functionality but defining it is still recommended.
+
+**ls_authors**: Defines the authors string shown in the "Auto Splitter Info" GUI dialog. Not necessary for functionality but defining it is still recommended.
+
+**ls_notes**: Defines the notes string shown in the "Auto Splitter Info" GUI dialog. This is helpful for relaying potentially useful information to the user, such as if the auto splitter only functions for one specific version of the game. Not necessary for functionality but defining it is still recommended.
+
+**ls_version**: Defines the version string shown in the "Auto Splitter Info" GUI dialog. Is used for defining the auto splitter version. Has a max character limit of 10. Not necessary for functionality but defining it is still recommended.
+
+**ls_experimental**: Defines the experimental boolean shown in the "Auto Splitter Info" GUI dialog. Used for showing the user if the auto splitter is "experimental" (i.e, hasn't been fully tested and/or hasn't been approved by leaderboard moderators). Defaults to false. 
+
 ```lua
 process('GameBlaBlaBla.exe')
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 ```
 
@@ -46,6 +65,12 @@ local isLoading = false;
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 
 function state()
@@ -67,6 +92,12 @@ local loadCount = 0
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 
 function state()
@@ -96,6 +127,12 @@ local loadCount = 0
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 
 function state()
@@ -127,6 +164,12 @@ local loadCount = 0
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 
 function state()
@@ -170,6 +213,12 @@ local loadCount = 0
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 
 function state()
@@ -219,6 +268,12 @@ local didReset = false
 
 function startup()
     refreshRate = 120
+
+    ls_gameName = "Bla Bla Bla"
+    ls_authors = "The Hat Man"
+    ls_notes = "Only works for Steam version 1.420"
+    ls_version = "1.23"
+    ls_experimental = true
 end
 
 function state()
@@ -297,7 +352,7 @@ end
     * `2`: Enabled for the current cycle and the next one
     * `3`: Enabled for the current cycle and the 2 next ones
     * You get the idea
-  
+
 ### Performance
 * Every uncached map finding takes around 1ms (depends a lot on your ram and cpu)
 * Every cached map finding takes around 100us
