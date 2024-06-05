@@ -899,8 +899,7 @@ static void toggle_auto_splitter(GtkCheckMenuItem* menu_item, gpointer user_data
     }
 }
 
-void auto_splitter_info_window()
-{
+void auto_splitter_info_window() {
     GtkWidget* popup;
     GtkWidget* vbox;
     GtkWidget* label_gamename;
@@ -909,18 +908,30 @@ void auto_splitter_info_window()
     GtkWidget* label_version;
     GtkWidget* label_experimental;
 
+    char game_label_text[60];      // Game: [50 chars max + null terminator + extra space]
+    char author_label_text[120];   // Author(s): [100 chars max + null terminator + extra space]
+    char notes_label_text[520];    // Notes: [500 chars max + null terminator + extra space]
+    char version_label_text[20];   // Version: [10 chars max + null terminator + extra space]
+    char experimental_label_text[30]; // Experimental: Yes/No + null terminator + extra space
+
     popup = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(popup), "Auto Splitter Info");
-    gtk_window_set_default_size(GTK_WINDOW(popup), 300, 300);
+    gtk_window_set_default_size(GTK_WINDOW(popup), 400, 200);
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_container_add(GTK_CONTAINER(popup), vbox);
 
-    label_gamename = gtk_label_new(desc_gamename[0] ? desc_gamename : "Game: Undefined");
-    label_authors = gtk_label_new(desc_authors[0] ? desc_authors : "Author(s): Undefined");
-    label_notes = gtk_label_new(desc_notes[0] ? desc_notes : "Notes: Undefined");
-    label_version = gtk_label_new(desc_version[0] ? desc_version : "Version: Undefined");
-    label_experimental = gtk_label_new(desc_experimental ? "Experimental: Yes." : "Experimental: No.");
+    snprintf(game_label_text, sizeof(game_label_text), "Game: %s", desc_gamename[0] ? desc_gamename : "Undefined");
+    snprintf(author_label_text, sizeof(author_label_text), "Author(s): %s", desc_authors[0] ? desc_authors : "Undefined");
+    snprintf(notes_label_text, sizeof(notes_label_text), "Notes: %s", desc_notes[0] ? desc_notes : "Undefined");
+    snprintf(version_label_text, sizeof(version_label_text), "Version: %s", desc_version[0] ? desc_version : "Undefined");
+    snprintf(experimental_label_text, sizeof(experimental_label_text), "Experimental: %s", desc_experimental ? "Yes" : "No");
+
+    label_gamename = gtk_label_new(game_label_text);
+    label_authors = gtk_label_new(author_label_text);
+    label_notes = gtk_label_new(notes_label_text);
+    label_version = gtk_label_new(version_label_text);
+    label_experimental = gtk_label_new(experimental_label_text);
 
     gtk_box_pack_start(GTK_BOX(vbox), label_gamename, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), label_authors, FALSE, FALSE, 0);
@@ -941,7 +952,7 @@ static gboolean button_right_click(GtkWidget* widget, GdkEventButton* event, gpo
         GtkWidget* menu_open_auto_splitter = gtk_menu_item_new_with_label("Open Auto Splitter");
         GtkWidget* menu_enable_auto_splitter = gtk_check_menu_item_new_with_label("Enable Auto Splitter");
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_enable_auto_splitter), atomic_load(&auto_splitter_enabled));
-        GtkWidget* menu_show_auto_splitter_info = gtk_check_menu_item_new_with_label("Show Auto Splitter Info");
+        GtkWidget* menu_show_auto_splitter_info = gtk_menu_item_new_with_label("Show Auto Splitter Info");
         GtkWidget* menu_reload = gtk_menu_item_new_with_label("Reload");
         GtkWidget* menu_close = gtk_menu_item_new_with_label("Close");
         GtkWidget* menu_quit = gtk_menu_item_new_with_label("Quit");
