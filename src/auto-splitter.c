@@ -245,8 +245,7 @@ bool call_va(lua_State* L, const char* func, const char* sig, ...)
     return true;
 }
 
-void startup(lua_State* L)
-{
+void startup(lua_State* L) {
     lua_getglobal(L, "startup");
     lua_pcall(L, 0, 0, 0);
 
@@ -262,6 +261,40 @@ void startup(lua_State* L)
         maps_cache_cycles_value = maps_cache_cycles;
     }
     lua_pop(L, 1); // Remove 'mapsCacheCycles' from the stack
+
+    lua_getglobal(L, "ls_gameName");
+    if (lua_isstring(L, -1)) {
+        strncpy(desc_gamename, lua_tostring(L, -1), sizeof(desc_gamename) - 1);
+        desc_gamename[sizeof(desc_gamename) - 1] = '\0'; // Ensure null-termination
+    }
+    lua_pop(L, 1); // Remove 'ls_gameName' from the stack
+
+    lua_getglobal(L, "ls_authors");
+    if (lua_isstring(L, -1)) {
+        strncpy(desc_authors, lua_tostring(L, -1), sizeof(desc_authors) - 1);
+        desc_authors[sizeof(desc_authors) - 1] = '\0'; // Ensure null-termination
+    }
+    lua_pop(L, 1); // Remove 'ls_authors' from the stack
+
+    lua_getglobal(L, "ls_notes");
+    if (lua_isstring(L, -1)) {
+        strncpy(desc_notes, lua_tostring(L, -1), sizeof(desc_notes) - 1);
+        desc_notes[sizeof(desc_notes) - 1] = '\0'; // Ensure null-termination
+    }
+    lua_pop(L, 1); // Remove 'ls_notes' from the stack
+
+    lua_getglobal(L, "ls_version");
+    if (lua_isstring(L, -1)) {
+        strncpy(desc_version, lua_tostring(L, -1), sizeof(desc_version) - 1);
+        desc_version[sizeof(desc_version) - 1] = '\0'; // Ensure null-termination
+    }
+    lua_pop(L, 1); // Remove 'ls_version' from the stack
+
+    lua_getglobal(L, "ls_experimental");
+    if (lua_isboolean(L, -1)) {
+        desc_experimental = lua_toboolean(L, -1);
+    }
+    lua_pop(L, 1); // Remove 'ls_experimental' from the stack
 }
 
 void state(lua_State* L)

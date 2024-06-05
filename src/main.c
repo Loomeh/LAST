@@ -899,6 +899,37 @@ static void toggle_auto_splitter(GtkCheckMenuItem* menu_item, gpointer user_data
     }
 }
 
+void auto_splitter_info_window() {
+    GtkWidget* popup;
+    GtkWidget* vbox;
+    GtkWidget* label_gamename;
+    GtkWidget* label_authors;
+    GtkWidget* label_notes;
+    GtkWidget* label_version;
+    GtkWidget* label_experimental;
+
+    popup = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(popup), "Auto Splitter Info");
+    gtk_window_set_default_size(GTK_WINDOW(popup), 300, 300);
+
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    gtk_container_add(GTK_CONTAINER(popup), vbox);
+
+    label_gamename = gtk_label_new(desc_gamename[0] ? desc_gamename : "Game: Undefined");
+    label_authors = gtk_label_new(desc_authors[0] ? desc_authors : "Author(s): Undefined");
+    label_notes = gtk_label_new(desc_notes[0] ? desc_notes : "Notes: Undefined");
+    label_version = gtk_label_new(desc_version[0] ? desc_version : "Version: Undefined");
+    label_experimental = gtk_label_new(desc_experimental ? "Experimental: Yes." : "Experimental: No.");
+
+    gtk_box_pack_start(GTK_BOX(vbox), label_gamename, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), label_authors, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), label_notes, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), label_version, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), label_experimental, FALSE, FALSE, 0);
+
+    gtk_widget_show_all(popup);
+}
+
 // Create the context menu
 static gboolean button_right_click(GtkWidget* widget, GdkEventButton* event, gpointer app)
 {
@@ -909,6 +940,7 @@ static gboolean button_right_click(GtkWidget* widget, GdkEventButton* event, gpo
         GtkWidget* menu_open_auto_splitter = gtk_menu_item_new_with_label("Open Auto Splitter");
         GtkWidget* menu_enable_auto_splitter = gtk_check_menu_item_new_with_label("Enable Auto Splitter");
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_enable_auto_splitter), atomic_load(&auto_splitter_enabled));
+        GtkWidget* menu_show_auto_splitter_info = gtk_check_menu_item_new_with_label("Show Auto Splitter Info");
         GtkWidget* menu_reload = gtk_menu_item_new_with_label("Reload");
         GtkWidget* menu_close = gtk_menu_item_new_with_label("Close");
         GtkWidget* menu_quit = gtk_menu_item_new_with_label("Quit");
@@ -918,6 +950,7 @@ static gboolean button_right_click(GtkWidget* widget, GdkEventButton* event, gpo
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_save_splits);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_open_auto_splitter);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_enable_auto_splitter);
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_show_auto_splitter_info);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_reload);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_close);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_quit);
@@ -927,6 +960,7 @@ static gboolean button_right_click(GtkWidget* widget, GdkEventButton* event, gpo
         g_signal_connect(menu_save_splits, "activate", G_CALLBACK(save_activated), app);
         g_signal_connect(menu_open_auto_splitter, "activate", G_CALLBACK(open_auto_splitter), app);
         g_signal_connect(menu_enable_auto_splitter, "toggled", G_CALLBACK(toggle_auto_splitter), NULL);
+        g_signal_connect(menu_show_auto_splitter_info, "activate", G_CALLBACK(auto_splitter_info_window), NULL);
         g_signal_connect(menu_reload, "activate", G_CALLBACK(reload_activated), app);
         g_signal_connect(menu_close, "activate", G_CALLBACK(close_activated), app);
         g_signal_connect(menu_quit, "activate", G_CALLBACK(quit_activated), app);
