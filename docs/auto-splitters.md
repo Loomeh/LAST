@@ -28,7 +28,7 @@ process('GameBlaBlaBla.exe')
 ### `startup`
  The purpose of this function is to define LibreSplit's behaviour-defining variables.
 
-**refreshRate**: Controls how many times each second LibreSplit performs memory checks. If left undefined, LibreSplit will default to 60, which is fine for most games. This variable can usually remain undefined.
+**refreshRate**: Controls how many times each second LibreSplit performs memory checks and runs functions. If left undefined, LibreSplit will default to 60, which is fine for most games. This variable can usually remain undefined.
 
 **ls_gameName**: Defines the game name string shown in the "Auto Splitter Info" GUI dialog. Not necessary for functionality but defining it is still recommended.
 
